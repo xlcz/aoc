@@ -20,7 +20,7 @@ void trebuchet() {
             const int asInt = (line[i] - 0) - 48; // Convert to integer values (0-9)
             if (asInt < 0 || asInt > 9) continue; // not an integer
             if (firstDigit == -1) {
-                firstDigit = asInt * 10;
+                firstDigit = asInt * 10; // Emulates string concatenation, first digit will always be * 10 while second digit is added
             }
             lastDigit = asInt;
         }
