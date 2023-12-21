@@ -10,27 +10,24 @@
 
 void trebuchet() {
     FILE* file = fopen("input.txt", "r");
-    char chunk[128];
+    char line[128];
     int counter = 0;
-    while (fgets(chunk, sizeof(chunk), file)) {
-        int firstDigit = -1;
-        int lastDigit = 0;
-        for (int i = 0; i < sizeof(chunk); i++) {
-            if (chunk[i] == '\n') break;
-            const int asciiCode = chunk[i] - 0;
+    while (fgets(line, sizeof(line), file)) {
+        int firstDigit = -1, lastDigit = 0;
 
-            const int asInt = asciiCode - 48;
-            if (asInt >= 0 && asInt <= 9) {
-                if (firstDigit == -1) {
-                    firstDigit = asInt * 10;
-                }
-                lastDigit = asInt;
+        for (int i = 0; i < sizeof(line); i++) { // Foreach line in fgets
+            if (line[i] == '\n') break; // End of sentence, skip current iterator
+            const int asInt = (line[i] - 0) - 48; // Convert to integer values (0-9)
+            if (asInt < 0 || asInt > 9) continue; // not an integer
+            if (firstDigit == -1) {
+                firstDigit = asInt * 10;
             }
+            lastDigit = asInt;
         }
-        counter += (firstDigit + lastDigit);
-        chunk[0] = "\0";
+        counter += (firstDigit + lastDigit); // Increment counter
+        line[0] = "\0"; // clear line
     }
-    printf("%i", counter);
+    printf("%i", counter); // Print output
     fclose(file);
 }
 
